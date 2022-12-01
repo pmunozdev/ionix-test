@@ -1,5 +1,8 @@
 package com.ionix.test.backend.controller.advice;
 
+import com.ionix.test.backend.exception.EncodeException;
+import com.ionix.test.backend.exception.ExternalServiceException;
+import com.ionix.test.backend.exception.ExternalServiceParamException;
 import com.ionix.test.backend.exception.MappingExceptionEntity;
 import com.ionix.test.backend.model.common.ErrorBody;
 import lombok.extern.log4j.Log4j2;
@@ -99,6 +102,37 @@ public class ErrorControllerAdvice   {
                 .timestamp(LocalDateTime.now())
                 .build(),HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(value= EncodeException.class)
+    protected ResponseEntity<ErrorBody> handleEncodeException(EncodeException e){
+        log.error(e.getMessage());
+        return new ResponseEntity<>(ErrorBody.builder()
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build(),HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value= ExternalServiceException.class)
+    protected ResponseEntity<ErrorBody> handleEncodeExternalServiceException(ExternalServiceException e){
+        log.error(e.getMessage());
+        return new ResponseEntity<>(ErrorBody.builder()
+                .code(HttpStatus.NOT_FOUND.value())
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build(),HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value= ExternalServiceParamException.class)
+    protected ResponseEntity<ErrorBody> handleEncodeExternalServiceParamException(ExternalServiceParamException e){
+        log.error(e.getMessage());
+        return new ResponseEntity<>(ErrorBody.builder()
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message(e.getMessage())
+                .timestamp(LocalDateTime.now())
+                .build(),HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(value=Exception.class)
     protected ResponseEntity<ErrorBody> handleException(Exception e){

@@ -16,3 +16,11 @@ spring:
 user:
   username: pmunoz
   pass: 1234
+
+DES:
+  key: ionix123456
+
+api:
+  search:
+    apikey: f2f719e0
+    url: https://my.api.mockaroo.com/test-tecnico/search/{parametro_cifrado}

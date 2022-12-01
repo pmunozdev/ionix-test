@@ -1,12 +1,12 @@
 package com.ionix.test.backend.exception;
 
-public class ExternalServiceException extends RuntimeException {
+public class ExternalServiceParamException extends RuntimeException {
 
-    public ExternalServiceException(String message){
+    public ExternalServiceParamException(String message){
         super(message);
     }
 
-    public ExternalServiceException(String message, Throwable err){
+    public ExternalServiceParamException(String message, Throwable err){
         super(message, err);
     }
 
