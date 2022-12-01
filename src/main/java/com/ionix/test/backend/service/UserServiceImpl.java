@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deteleUserById(Long id) {
-       userRepo.deleteById(id);
+    public Boolean deteleUserById(Long id) {
+       if(userRepo.existsById(id)) {
+           userRepo.deleteById(id);
+           return true;
+       }
+       return false;
     }
 }

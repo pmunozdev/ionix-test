@@ -33,7 +33,7 @@ public interface UserService {
      * Elimina un usuario
      * @param id  {@link Long}
      */
-    void deteleUserById(Long id);
+    Boolean deteleUserById(Long id);
 
 
 }
