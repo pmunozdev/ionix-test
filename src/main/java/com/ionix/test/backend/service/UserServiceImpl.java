@@ -5,14 +5,12 @@ import com.ionix.test.backend.model.common.UserDTO;
 import com.ionix.test.backend.model.entity.UserEntity;
 import com.ionix.test.backend.model.request.UserRequestDTO;
 import com.ionix.test.backend.repository.UserRepository;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.MappingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
