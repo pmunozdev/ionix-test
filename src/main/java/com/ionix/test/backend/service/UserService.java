@@ -1,9 +1,7 @@
 package com.ionix.test.backend.service;
 
 import com.ionix.test.backend.model.common.UserDTO;
-import com.ionix.test.backend.model.entity.UserEntity;
 import com.ionix.test.backend.model.request.UserRequestDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

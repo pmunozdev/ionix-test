@@ -6,16 +6,15 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchResponse implements Serializable {
+public class SearchApiResponse implements Serializable {
 
-
-    private static final long serialVersionUID = -798714817747145536L;
+    private static final long serialVersionUID = 6521726077377997727L;
     private Integer responseCode;
     private String description;
-    private Long elapsedTime;
-    private SearchResultResponse result;
-
+    private SearchApiResultResponse result;
 }

@@ -1,8 +1,6 @@
 package com.ionix.test.backend.service;
 
 import com.ionix.test.backend.model.response.SearchResponse;
-import com.ionix.test.backend.util.CifradoDES;
-import org.springframework.stereotype.Service;
 
 
 public interface SearchService {

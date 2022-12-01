@@ -1,11 +1,8 @@
 package com.ionix.test.backend.controller;
 
-import com.ionix.test.backend.model.common.UserDTO;
 import com.ionix.test.backend.model.request.SearchRequest;
-import com.ionix.test.backend.model.request.UserRequestDTO;
 import com.ionix.test.backend.model.response.SearchResponse;
 import com.ionix.test.backend.service.SearchService;
-import com.ionix.test.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -15,10 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -35,7 +34,7 @@ public class SearchApiController {
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Api consultada ok", content = {
-                            @Content(mediaType = "application/json", schema = @Schema(implementation = UserDTO.class))
+                            @Content(mediaType = "application/json", schema = @Schema(implementation = SearchResponse.class))
                     }),
                     @ApiResponse(responseCode = "404", description = "Recurso no encontrado", content = @Content),
                     @ApiResponse(responseCode = "400", description = "Error en los parametros de entrada", content = @Content),
@@ -43,7 +42,7 @@ public class SearchApiController {
             })
     public ResponseEntity<SearchResponse> consumeApiSearch(
             @Valid @RequestBody SearchRequest search) {
-        return new ResponseEntity<>(SearchService.consultaApiSearch(search.getParametro()),HttpStatus.CREATED);
+        return new ResponseEntity<>(SearchService.consultaApiSearch(search.getParametro()),HttpStatus.OK);
     }
 
 
