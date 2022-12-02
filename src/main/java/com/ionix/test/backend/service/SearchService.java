@@ -12,7 +12,7 @@ public interface SearchService {
      * @param parametro {@link String}
      * @return {@link SearchResponse}
      */
-    SearchResponse consultaApiSearch(String parametro);
+    SearchResponse getApiSearch(String parametro);
 
 
 

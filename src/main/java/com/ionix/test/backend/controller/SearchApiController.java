@@ -29,7 +29,7 @@ public class SearchApiController {
     private SearchService SearchService;
 
 
-    @PostMapping("/")
+    @PostMapping
     @Operation(summary = "Servicio que consume la API para la prueba técnica")
     @ApiResponses(
             value = {
@@ -42,7 +42,7 @@ public class SearchApiController {
             })
     public ResponseEntity<SearchResponse> consumeApiSearch(
             @Valid @RequestBody SearchRequest search) {
-        return new ResponseEntity<>(SearchService.consultaApiSearch(search.getParametro()),HttpStatus.OK);
+        return new ResponseEntity<>(SearchService.getApiSearch(search.getParametro()),HttpStatus.OK);
     }
 
 

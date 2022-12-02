@@ -27,6 +27,7 @@ public class SecurityConfig {
         return http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/ionix/v1/user/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/ionix/v1/users/**").permitAll()
                 .antMatchers(HttpMethod.GET, "**").permitAll()
                 .antMatchers(HttpMethod.POST, "/ionix/v1/search/**").permitAll()
                 .anyRequest().authenticated()

@@ -2,7 +2,6 @@ package com.ionix.test.backend.service;
 
 import com.ionix.test.backend.exception.EncodeException;
 import com.ionix.test.backend.exception.ExternalServiceException;
-import com.ionix.test.backend.exception.ExternalServiceParamException;
 import com.ionix.test.backend.model.response.SearchApiResponse;
 import com.ionix.test.backend.model.response.SearchResponse;
 import com.ionix.test.backend.model.response.SearchResultResponse;
@@ -17,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Service
@@ -38,7 +36,7 @@ public class SearchServiceImpl implements SearchService{
     private final RestTemplate restTemplate=new RestTemplate() ;
 
     @Override
-    public SearchResponse consultaApiSearch(String parametro) {
+    public SearchResponse getApiSearch(String parametro) {
         String parametroEncode;
         try {
             parametroEncode=CifradoDES.encode(parametro, DESKey);
@@ -49,7 +47,7 @@ public class SearchServiceImpl implements SearchService{
 
 
         Instant start=Instant.now();
-        ResponseEntity<SearchApiResponse> searchResponse=consumeApi(parametroEncode);
+        ResponseEntity<SearchApiResponse> searchResponse=getApi(parametroEncode);
         long duration = Duration.between(start, Instant.now()).toMillis();
 
         if(searchResponse.getStatusCode()!= HttpStatus.OK){
@@ -70,23 +68,18 @@ public class SearchServiceImpl implements SearchService{
 
     }
 
-    private ResponseEntity<SearchApiResponse> consumeApi(String parametro){
+    private ResponseEntity<SearchApiResponse> getApi(String parametro){
         HttpEntity<Void> requestEntity;
         UriComponentsBuilder builder;
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
-            headers.set("X-API-Key", apiKey);
-            requestEntity = new HttpEntity<>(headers);
-        }catch (Exception e) {
-            throw new ExternalServiceParamException("Error al setear los parametros para el consumo de la api - "+e.getMessage(), e);
-        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
+        headers.set("X-API-Key", apiKey);
+        requestEntity = new HttpEntity<>(headers);
 
         try{
-
             return  restTemplate.exchange(
                     apiUrl, HttpMethod.GET, requestEntity, SearchApiResponse.class,parametro);
-        }catch (RestClientException e) {
+        }catch (Exception e) {
             throw new ExternalServiceException("Error el consumir el API - "+e.getMessage(), e);
         }
 
